@@ -3,6 +3,57 @@ import 'package:flutter/material.dart';
 Color backgroundColor = const Color.fromARGB(255, 38, 41, 55);
 Color buttonOnColor = const Color.fromARGB(255, 120, 132, 206);
 
+class DateProgressive extends StatelessWidget {
+  final double value;
+  final int number;
+  final String name;
+  const DateProgressive(this.number, this.name, this.value, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      width: 100,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  value: value,
+                  backgroundColor: Theme.of(context).primaryColor.withAlpha(125),
+                  // color: Colors.black.withAlpha(100),
+                  strokeWidth: 8,
+                  strokeAlign: 5.0,
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  number.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 35),
+          Text(
+            name,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ActionBar extends StatelessWidget {
   final Text child;
   final bool active;
@@ -88,7 +139,7 @@ class Webpage extends StatelessWidget {
           SizedBox(width: 100),
         ],
       ),
-      body: const ViewPort(),
+      body: const SingleChildScrollView(child: ViewPort()),
     );
   }
 }
@@ -100,7 +151,50 @@ class ViewPort extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset("assets/imgs/5.jpg"),
+        Stack(
+          children: [
+            Image.asset(
+              "assets/imgs/5.jpg",
+              fit: BoxFit.fitWidth,
+            ),
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              height: MediaQuery.sizeOf(context).height * .80,
+              padding: const EdgeInsets.only(left: 50),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: MediaQuery.sizeOf(context).height * .30),
+                  const Text(
+                    "WELCOME",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const Text(
+                    "MUSIC RELOADED\nPARTY 2023",
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 50),
+                  const Row(
+                    children: [
+                      DateProgressive(39, "Days", .4),
+                      DateProgressive(17, "Hours", .2),
+                      DateProgressive(42, "Minute", .9),
+                      DateProgressive(19, "Sec", .8),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        )
       ],
     );
   }
