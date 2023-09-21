@@ -68,6 +68,12 @@ flutter:
     - assets/imgs/6.jpg
     - assets/imgs/7.jpg
 
+    - assets/imgs/google-logo-1.png
+    - assets/imgs/Microsoft_logo_(2012).svg.png
+    - assets/imgs/Oracle-logo.png
+    - assets/imgs/paypal-logo.png
+    - assets/imgs/Visa_Inc._logo.webp
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

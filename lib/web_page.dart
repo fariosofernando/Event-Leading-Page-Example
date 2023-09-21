@@ -2,6 +2,93 @@ import 'package:flutter/material.dart';
 
 Color backgroundColor = const Color.fromARGB(255, 38, 41, 55);
 Color buttonOnColor = const Color.fromARGB(255, 120, 132, 206);
+Color secundaryContainerColor = const Color.fromARGB(255, 26, 28, 33);
+
+class PrecingCard extends StatelessWidget {
+  final bool isMiddle;
+  final String value;
+  final String category;
+  const PrecingCard(this.value, this.category, {this.isMiddle = false, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 350,
+      width: 200,
+      padding: const EdgeInsets.symmetric(vertical: 25),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: isMiddle
+            ? null
+            : Border.all(
+                color: Theme.of(context).primaryColor,
+              ),
+        color: isMiddle ? buttonOnColor.withAlpha(20) : null,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            category,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 40,
+              color: isMiddle ? buttonOnColor : Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            "Centro medio",
+            style: TextStyle(
+              color: isMiddle ? Colors.white : Colors.white.withAlpha(170),
+            ),
+          ),
+          Text(
+            "Centro e meio",
+            style: TextStyle(
+              color: isMiddle ? Colors.white : Colors.white.withAlpha(170),
+            ),
+          ),
+          Text(
+            "Todos centro medio",
+            style: TextStyle(
+              color: isMiddle ? Colors.white : Colors.white.withAlpha(170),
+            ),
+          ),
+          Text(
+            "Centro medio",
+            style: TextStyle(
+              color: isMiddle ? Colors.white : Colors.white.withAlpha(170),
+            ),
+          ),
+          Text(
+            "Centro de medio",
+            style: TextStyle(
+              color: isMiddle ? Colors.white : Colors.white.withAlpha(170),
+            ),
+          ),
+          const SizedBox(height: 5),
+          FilledButton(
+            onPressed: () {},
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                isMiddle ? Theme.of(context).primaryColor.withAlpha(50) : null,
+              ),
+            ),
+            child: const Text("Select Package"),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class DateProgressive extends StatelessWidget {
   final double value;
@@ -194,7 +281,164 @@ class ViewPort extends StatelessWidget {
               ),
             )
           ],
-        )
+        ),
+        SizedBox(
+          height: 350,
+          width: MediaQuery.sizeOf(context).width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  'assets/imgs/7.jpg',
+                  height: 250,
+                ),
+              ),
+              const SizedBox(width: 25),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 40),
+                  const Text(
+                    "Global Fridays\nGlow Up 4.20",
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit.\nNulla vestibulum tempus metus,\nsagittis condimentum mi.',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      FilledButton(
+                        onPressed: () {},
+                        child: const Text("View Datails"),
+                      ),
+                      const SizedBox(width: 10),
+                      OutlinedButton(
+                        onPressed: () {},
+                        child: const Text("Get Ticket"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Container(
+          color: secundaryContainerColor,
+          height: 800,
+          width: MediaQuery.sizeOf(context).width,
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              Opacity(
+                opacity: .5,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/imgs/google-logo-1.png', width: 150),
+                    const SizedBox(width: 25),
+                    Image.asset('assets/imgs/Oracle-logo.png', width: 150),
+                    const SizedBox(width: 25),
+                    Image.asset('assets/imgs/paypal-logo.png', width: 150),
+                  ],
+                ),
+              ),
+              const Text(
+                "Pricing",
+                style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 5),
+              const Text(
+                'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 25),
+              Container(
+                width: 100,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              const SizedBox(height: 25),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PrecingCard('\$300', 'Bronze'),
+                  SizedBox(width: 25),
+                  PrecingCard('\$549', 'Silver', isMiddle: true),
+                  SizedBox(width: 25),
+                  PrecingCard('\$749', 'Gold'),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          // height: MediaQuery.sizeOf(context).height * .50,
+          child: Stack(
+            children: [
+              Image.asset(
+                'assets/imgs/1.jpg',
+                fit: BoxFit.fitWidth,
+              ),
+              Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 50),
+                      const Text(
+                        'Are you wanted to peform Mavent?',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 50),
+                        child: Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum tempus metus, sagittis condimentum mi. Donec ullamcorper risus purus, nec fermentum ex sodales eu.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      OutlinedButton(
+                        onPressed: () {},
+                        style: const ButtonStyle(
+                          foregroundColor: MaterialStatePropertyAll(
+                            Colors.white,
+                          ),
+                        ),
+                        child: const Text("Submit Request"),
+                      ),
+                    ],
+                  ))
+            ],
+          ),
+        ),
       ],
     );
   }
