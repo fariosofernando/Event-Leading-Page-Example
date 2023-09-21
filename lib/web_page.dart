@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 
 Color backgroundColor = const Color.fromARGB(255, 38, 41, 55);
 Color buttonOnColor = const Color.fromARGB(255, 120, 132, 206);
@@ -82,7 +83,7 @@ class PrecingCard extends StatelessWidget {
                 isMiddle ? Theme.of(context).primaryColor.withAlpha(50) : null,
               ),
             ),
-            child: const Text("Select Package"),
+            child: const Text("Selecione Pacote"),
           )
         ],
       ),
@@ -170,9 +171,35 @@ class ActionBar extends StatelessWidget {
   }
 }
 
-class Webpage extends StatelessWidget {
+class Webpage extends StatefulWidget {
   final String title;
   const Webpage({required this.title, super.key});
+
+  @override
+  State<Webpage> createState() => _WebpageState();
+}
+
+class _WebpageState extends State<Webpage> {
+  final _scrollController = ScrollController();
+  double _logoOpacity = 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.offset > 180 && _logoOpacity != 0.0) {
+        setState(() => _logoOpacity = 0.0);
+      } else if (_scrollController.offset <= 180 && _logoOpacity != 1.0) {
+        setState(() => _logoOpacity = 1.0);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,51 +209,62 @@ class Webpage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Row(
-          children: [
-            const SizedBox(width: 100),
-            Text(
-              "O",
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                color: Theme.of(context).primaryColor,
-                fontSize: 50,
+        title: AnimatedOpacity(
+          opacity: _logoOpacity,
+          duration: const Duration(milliseconds: 300),
+          child: Row(
+            children: [
+              const SizedBox(width: 100),
+              Text(
+                "O",
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 40,
+                ),
               ),
-            ),
-            const SizedBox(width: 5),
-            const Text(
-              "Logo",
-              style: TextStyle(
-                color: Colors.white,
+              const SizedBox(width: 5),
+              const Text(
+                "Logo",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         actions: const [
           ActionBar(
             active: true,
-            child: Text("Home"),
+            child: Text("Ínicio"),
           ),
           ActionBar(
-            child: Text("About"),
+            child: Text("Sobre"),
           ),
           ActionBar(
-            child: Text("Perfomer"),
+            child: Text("Performances"),
           ),
           ActionBar(
-            child: Text("Event Schedule"),
+            child: Text("Eventos"),
           ),
           ActionBar(
             child: Text("Blog"),
           ),
           ActionBar(
             filled: true,
-            child: Text("Contact"),
+            child: Text("Contacto"),
           ),
           SizedBox(width: 100),
         ],
       ),
-      body: const SingleChildScrollView(child: ViewPort()),
+      body: WebSmoothScroll(
+        controller: _scrollController,
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _scrollController,
+          child: const ViewPort(),
+        ),
+      ),
     );
   }
 }
@@ -254,14 +292,14 @@ class ViewPort extends StatelessWidget {
                 children: [
                   SizedBox(height: MediaQuery.sizeOf(context).height * .30),
                   const Text(
-                    "WELCOME",
+                    "BEM-VINDO",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
                     ),
                   ),
                   const Text(
-                    "MUSIC RELOADED\nPARTY 2023",
+                    "FESTA DE MÚSICA\nRECARREGADA 2023",
                     style: TextStyle(
                       fontSize: 40,
                       color: Colors.white,
@@ -271,10 +309,10 @@ class ViewPort extends StatelessWidget {
                   const SizedBox(height: 50),
                   const Row(
                     children: [
-                      DateProgressive(39, "Days", .4),
-                      DateProgressive(17, "Hours", .2),
+                      DateProgressive(39, "Dias", .4),
+                      DateProgressive(17, "Horas", .2),
                       DateProgressive(42, "Minute", .9),
-                      DateProgressive(19, "Sec", .8),
+                      DateProgressive(19, "Seg", .8),
                     ],
                   ),
                 ],
@@ -301,7 +339,7 @@ class ViewPort extends StatelessWidget {
                 children: [
                   SizedBox(height: 40),
                   const Text(
-                    "Global Fridays\nGlow Up 4.20",
+                    "Sextas-feiras\nglobais brilham 4.20",
                     style: TextStyle(
                       fontSize: 40,
                       color: Colors.white,
@@ -320,12 +358,12 @@ class ViewPort extends StatelessWidget {
                     children: [
                       FilledButton(
                         onPressed: () {},
-                        child: const Text("View Datails"),
+                        child: const Text("Ver Detalhes"),
                       ),
                       const SizedBox(width: 10),
                       OutlinedButton(
                         onPressed: () {},
-                        child: const Text("Get Ticket"),
+                        child: const Text("Obter Ingresso"),
                       ),
                     ],
                   ),
@@ -355,7 +393,7 @@ class ViewPort extends StatelessWidget {
                 ),
               ),
               const Text(
-                "Pricing",
+                "Preços",
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,
@@ -385,9 +423,9 @@ class ViewPort extends StatelessWidget {
                 children: [
                   PrecingCard('\$300', 'Bronze'),
                   SizedBox(width: 25),
-                  PrecingCard('\$549', 'Silver', isMiddle: true),
+                  PrecingCard('\$549', 'Prata', isMiddle: true),
                   SizedBox(width: 25),
-                  PrecingCard('\$749', 'Gold'),
+                  PrecingCard('\$749', 'Ouro'),
                 ],
               ),
             ],
@@ -407,7 +445,7 @@ class ViewPort extends StatelessWidget {
                     children: [
                       const SizedBox(height: 50),
                       const Text(
-                        'Are you wanted to peform Mavent?',
+                        'Você gostaria de participar do Evento?',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -432,7 +470,7 @@ class ViewPort extends StatelessWidget {
                             Colors.white,
                           ),
                         ),
-                        child: const Text("Submit Request"),
+                        child: const Text("Enviar pedido"),
                       ),
                     ],
                   ))
